@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Button, Theme } from '@carbon/react';
+import { Theme } from '@carbon/react';
 import AppShell from './components/AppShell';
 import ChatPanel from './components/ChatPanel';
 import SummarySidebar, { type VizSegment } from './components/SummarySidebar';
@@ -286,11 +286,6 @@ export default function App() {
             />
           </div>
 
-          <footer className="estimator__footer">
-            <div className="estimator__footer-spacer" style={{ flex: 1 }} />
-            <Button kind="secondary" size="2xl">Back</Button>
-            <Button kind="primary" size="2xl">Save and start new estimate</Button>
-          </footer>
         </>
       ) : (
         <>
@@ -318,13 +313,6 @@ export default function App() {
               showReview={false}
             />
           </div>
-
-          <footer className="estimator__footer">
-            <Button kind="secondary" size="2xl" onClick={() => setView('form')}>
-              Back to configuration
-            </Button>
-            <Button kind="primary" size="2xl">Save and start new estimate</Button>
-          </footer>
         </>
       )}
     </div>
