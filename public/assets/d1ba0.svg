@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="117" height="56" viewBox="0 0 117 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_Multiple border">
+<rect width="117" height="56" fill="white" fill-opacity="0.01" style="mix-blend-mode:multiply"/>
+<g id="_Container">
+<path d="M117 0H0V56H117V0Z" fill="white" fill-opacity="0.01" style="mix-blend-mode:multiply"/>
+</g>
+<path id="Vector" d="M4 4.5H112.5V52" stroke="#009D9A"/>
+<path id="Vector_2" d="M8 0.5H116.5V48" stroke="#009D9A"/>
+</g>
+</svg>

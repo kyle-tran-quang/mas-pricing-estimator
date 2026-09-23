@@ -1,0 +1,11 @@
+{
+  "title": "MAS Pricing Estimator",
+  "description": "This interactive web application serves as a Maximo Pricing estimator, allowing users to visualize costs dynamically as they input data, enhancing decision-making.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

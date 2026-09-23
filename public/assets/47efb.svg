@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="863" height="64" viewBox="0 0 863 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_Accordion content skeleton base">
+<path id="Skeleton line" d="M863 0H0V10H863V0Z" fill="#E5E5E5"/>
+<path id="Skeleton line_2" d="M863 18H0V28H863V18Z" fill="#E5E5E5"/>
+<path id="Skeleton line_3" d="M863 36H0V46H863V36Z" fill="#E5E5E5"/>
+<g id="Skeleton line_4">
+<path id="Skeleton line piece" d="M287.667 54H0V64H287.667V54Z" fill="#E5E5E5"/>
+<path id="Skeleton line piece_2" d="M575.333 54H287.667V64H575.333V54Z" fill="#E5E5E5"/>
+<g id="Spacer">
+<path d="M863 54H575.333V64H863V54Z" fill="white" style="mix-blend-mode:multiply"/>
+</g>
+</g>
+</g>
+</svg>

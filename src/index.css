@@ -1,0 +1,2093 @@
+/* Google Fonts — IBM Plex Sans Condensed (Carbon provides IBM Plex Sans + Mono) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;700&display=swap');
+
+/* Carbon Design System — White theme, prebuilt CSS. No Tailwind. */
+
+/* IBM Plex font family — Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans+Condensed:wght@400;700&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@400;600&display=swap');
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f4f4f4;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Type helper classes (Carbon type tokens)
+--------------------------------------------------------------------------- */
+.cds--label,
+.cds--label-01 {
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+}
+.cds--body-compact-01 {
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+}
+.cds--heading-compact-01 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+.cds--heading-compact-02 {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+}
+.cds--productive-heading-03 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+.cds--productive-heading-04 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout shell: sidebar | main config | step nav
+--------------------------------------------------------------------------- */
+.estimator {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: #f4f4f4;
+  /* Mobile bottom-dock action-bar (footer) height; drives fixed dock coordination. */
+  --dock-actions-h: 72px;
+}
+
+.estimator__header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+/* The scrollable body between header and footer */
+.estimator__body {
+  display: flex;
+  flex: 1 0 0;
+  align-items: stretch;
+  width: 100%;
+  /* offset for sticky 48px Carbon header */
+  padding-top: 48px;
+}
+
+/* The main area is left stepnav + configform side-by-side */
+.estimator__main {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  /* Single divider on the right, separating the body from the summary panel. */
+  border-right: 1px solid #c6c6c6; /* $border-subtle */
+}
+
+.estimator__form {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px; /* design: gap-[48px] */
+  padding: 16px 32px 64px 16px;
+}
+
+/* Bottom action bar */
+.estimator__footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border-top: 1px solid #e0e0e0;
+  background: #ffffff;
+  z-index: 2;
+}
+
+.estimator__footer .cds--btn {
+  min-width: 232px;
+  max-width: none;
+  height: 80px;
+}
+
+/* ---------------------------------------------------------------------------
+   Left summary sidebar — 400 px sticky panel
+--------------------------------------------------------------------------- */
+.summary {
+  flex: 0 0 400px;
+  width: 400px;
+  background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 32px;
+  /* sticky below the fixed 48px Carbon header */
+  position: sticky;
+  top: 48px;
+  align-self: flex-start;
+  max-height: calc(100vh - 48px - 80px);
+  overflow-y: auto;
+}
+
+/* Chart toggle is desktop-hidden; the collapsible region is always shown at ≥1056px. */
+.summary__toggle {
+  display: none;
+  width: 100%;
+  max-width: none;
+  justify-content: space-between;
+}
+
+/* Mobile dock cue (collapsed summary bar). Hidden on desktop. */
+.summary__dock {
+  display: none;
+}
+
+.summary__collapse {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.summary__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0 8px;
+  row-gap: 0;
+}
+
+.summary__eyebrow {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.summary__title {
+  color: #161616;
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Inline-editable estimate name — serif text/input indistinguishable, with a
+   ghost pencil that swaps into a borderless serif input + tick. */
+.inline-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.inline-name__label {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  margin: 0 0 4px;
+}
+
+.inline-name__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.inline-name__text,
+.inline-name__input {
+  color: #161616;
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+}
+
+.inline-name__text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.inline-name__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Estimate-name field in the form is desktop-hidden (sidebar owns it); shown on mobile. */
+.estimator__form-name {
+  display: none;
+}
+
+.summary__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px; /* design: gap-[32px] */
+}
+
+.summary__stat {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary__stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+}
+
+.summary__stat-value .big {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.summary__stat-value .unit {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.16px;
+  font-weight: 400;
+}
+
+.summary__stat-label {
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+
+.viz {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  background: #e8e8e8;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.viz__axis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  flex: 0 0 16px;
+}
+
+.viz__axis span {
+  display: block;
+  transform: rotate(-90deg);
+  white-space: nowrap;
+  opacity: 0.5;
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.32px;
+}
+
+.viz__bars {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.viz__segment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--seg-bg, #ffffff);
+  border-left: 4px solid var(--seg-border, #0f62fe);
+  min-height: 48px;
+  padding: 6px 16px;
+  transition: height 260ms cubic-bezier(0.2, 0, 0.38, 0.9);
+  overflow: hidden;
+}
+
+.viz__segment + .viz__segment {
+  margin-top: 1px;
+}
+
+.viz__segment-name {
+  color: #161616;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+
+.viz__segment-meta {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+
+.viz__empty {
+  flex: 1 0 0;
+  min-height: 176px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+.viz__empty-bar {
+  width: 100%;
+  height: 88px;
+  border: 1px dashed #c6c6c6;
+  border-left: 4px dashed #a8a8a8;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 8px,
+      rgba(141, 141, 141, 0.08) 8px,
+      rgba(141, 141, 141, 0.08) 16px
+    );
+}
+
+.viz__empty-text {
+  margin: 0;
+  color: #525252;
+  text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.summary__review .cds--btn {
+  width: 100%;
+  max-width: none;
+}
+
+/* Users mix legend */
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: #e0e0e0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 4px 8px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 80px;
+  flex: 0 0 8px;
+}
+
+.legend-label {
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+
+.legend-name {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+  white-space: nowrap;
+}
+
+.legend-value {
+  margin-left: auto;
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+  white-space: nowrap;
+}
+
+/* stepnav styles are defined below near the right rail section */
+
+.estimator__center {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 16px 32px 64px 16px;
+  box-sizing: border-box;
+  border-left: 1px solid #c6c6c6;
+  border-right: 1px solid #c6c6c6;
+}
+
+/* Form step sections */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* Clear the sticky 48px Carbon header so a scrolled/tapped section lands
+     just below it (matches the scroll-spy detection band). */
+  scroll-margin-top: 64px;
+}
+
+.step__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step__eyebrow {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  letter-spacing: 0.16px;
+}
+
+.step__title {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Radio row list items (for industry, deployment, env size, contract) */
+.radio-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* Tile grid helpers (applied to plain div wrappers, not fieldsets) */
+.tile-group-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tile-group-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-tile__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+.radio-grid-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.radio-row {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  background: white;
+  padding-right: 8px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: inset 0px -1px 0px 0px #e0e0e0;
+  border-left: 3px solid transparent;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.radio-row:hover {
+  background: #e8e8e8;
+}
+
+.radio-row--checked {
+  background: #e0e0e0;
+  border-left-color: #0f62fe;
+}
+
+.radio-row input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radio-row__inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.radio-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #8d8d8d;
+  flex-shrink: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.radio-indicator--checked {
+  border-color: #0f62fe;
+  border-width: 1px;
+}
+
+.radio-indicator--checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0f62fe;
+}
+
+.radio-row__icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.app-tile__category {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.32px;
+  margin: 8px 0 12px;
+}
+
+/* User pool section */
+.subsection-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #161616;
+  padding: 0 16px;
+}
+
+.userpool__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding-bottom: 24px;
+}
+
+.userpool__summary-item {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.userpool__summary-value {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.userpool__summary-item .value {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.userpool__summary-item .unit {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+  white-space: nowrap;
+}
+
+.userpool__summary-item .label {
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  width: 100%;
+}
+
+.userpool__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+  padding: 0 0 24px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #c6c6c6;
+}
+
+.userpool__info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.userpool__info-name {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.userpool__info-meta {
+  display: flex;
+  flex-direction: column;
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+}
+
+.userpool__inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.userpool__inputs .cds--number {
+  width: 8rem;
+  min-width: 0;
+}
+
+.userpool__inputs .cds--number input {
+  min-width: 0;
+  width: 100%;
+}
+
+.userpool__points {
+  display: flex;
+  align-items: flex-end;
+  min-height: 64px;
+  padding: 4px 0;
+  margin-left: auto;
+  width: 100px;
+}
+
+/* More Options accordion row */
+.more-options {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: white;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  box-shadow: inset 0px 1px 0px 0px #e0e0e0;
+  text-align: left;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #161616;
+  letter-spacing: 0.16px;
+}
+
+.more-options:hover {
+  background: #e8e8e8;
+}
+
+.more-options svg {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Right step navigation — 200 px vertical tab panel
+--------------------------------------------------------------------------- */
+.stepnav {
+  flex: 0 0 200px;
+  width: 200px;
+  background: #f4f4f4;
+  padding: 16px 0 16px 16px;
+  position: sticky;
+  top: 48px;
+  align-self: flex-start;
+  min-height: calc(100vh - 128px);
+  box-sizing: border-box;
+}
+
+.stepnav__item {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 16px;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+  transition: background-color 150ms ease;
+}
+
+.stepnav__item:hover {
+  background: rgba(141, 141, 141, 0.12);
+}
+
+.stepnav__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: #c6c6c6;
+  /* Full-height segments abut with no gaps so the rail reads as one straight
+     line; only the color animates as a step becomes active. */
+  transform: scaleY(1);
+  transform-origin: center;
+  transition: background-color 200ms ease;
+}
+
+.stepnav__item--active::before {
+  background: #0f62fe;
+}
+
+.stepnav__item ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.stepnav__item ol li {
+  padding-left: 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+  color: #525252;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.stepnav__item--active ol li {
+  font-weight: 600;
+  color: #161616;
+}
+
+/* ---------------------------------------------------------------------------
+   Missing / additional classes
+--------------------------------------------------------------------------- */
+
+/* Title block groups eyebrow + title in summary sidebar */
+.summary__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Viz wrapper — contains the viz bar chart */
+.viz-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Legend label above the grid */
+.legend-label {
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+
+/* App tile grid */
+.app-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* Radio row content and labels */
+.radio-row__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radio-row__label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+}
+
+.radio-row--checked .radio-row__label {
+  font-weight: 600;
+}
+
+.radio-row__sublabel {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+  color: #525252;
+}
+
+/* User pool rows wrapper */
+.userpool__rows {
+  display: flex !important;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---------------------------------------------------------------------------
+   Review page — detail body (rendered inside .estimator__main)
+--------------------------------------------------------------------------- */
+
+.review-detail {
+  flex: 1 0 0;
+  min-width: 0;
+  background: #ffffff;
+  border-left: 1px solid #c6c6c6;
+  overflow-y: auto;
+  padding: 16px 48px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.review-detail__back {
+  align-self: flex-start;
+  margin-left: -12px;
+}
+
+.review-detail__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.review-detail__eyebrow {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  color: #525252;
+  margin: 0;
+}
+
+.review-detail__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+  color: #161616;
+  margin: 0;
+}
+
+.review-detail__modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+/* KPI row */
+.review-detail__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: #e0e0e0;
+  border: 1px solid #e0e0e0;
+}
+
+.review-detail__kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 24px;
+  background: var(--cds-layer-01, #f4f4f4);
+}
+
+.review-detail__kpi-value {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 36px;
+  color: #161616;
+}
+
+.review-detail__kpi-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #525252;
+}
+
+/* Sections */
+.review-detail__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-detail__section-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #525252;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  margin: 0 0 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.review-detail__groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+/* Numeric column alignment in the breakdown table */
+.review-detail__num,
+.review-detail__num .cds--table-header-label {
+  text-align: right;
+}
+
+.review-detail__table {
+  width: 100%;
+}
+
+.review-detail__total-row td {
+  border-top: 1px solid #8d8d8d;
+  background: var(--cds-layer-01, #f4f4f4);
+}
+
+/* Detail list helpers */
+.review-detail__ap-note {
+  color: #525252;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.review-detail__price {
+  font-size: 20px;
+}
+
+.review-detail__muted,
+.review-detail__muted-cell {
+  color: #525252;
+  font-size: 12px;
+}
+
+.review-detail__tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* StructuredList cell width: first cell fixed, rest fluid */
+.review-detail .cds--structured-list-td:first-child,
+.review-detail .cds--structured-list-th:first-child {
+  min-width: 180px;
+  max-width: 220px;
+  color: #525252;
+}
+
+/* ---------------------------------------------------------------------------
+   More Options accordion (Step 1)
+--------------------------------------------------------------------------- */
+
+.more-options-panel {
+  margin-top: 8px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.more-options-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+  color: #161616;
+  text-align: left;
+  box-shadow: inset 0 1px 0 0 #e0e0e0;
+}
+
+.more-options-panel__header:hover {
+  background: #e8e8e8;
+}
+
+.more-options-panel__title {
+  flex: 1;
+}
+
+.more-options-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 24px 0 0;
+}
+
+.more-options-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.more-options-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+}
+
+.more-options-section__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+  color: #161616;
+  margin: 0;
+}
+
+.more-options-section__desc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+  color: #161616;
+  margin: 0;
+}
+
+/* 3-column checklist grid */
+.checklist-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* Single checklist row item */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 8px 16px 0;
+  box-shadow: inset 0 -1px 0 0 #e0e0e0;
+  background: #ffffff;
+  min-height: 120px;
+  border-left: 3px solid transparent;
+  transition: background 80ms, border-color 80ms;
+}
+
+.checklist-item--selected {
+  border-left-color: #0f62fe;
+  background: #e0e0e0;
+}
+
+.checklist-item__check {
+  flex-shrink: 0;
+  /* Align checkbox with first line of label */
+  padding-top: 1px;
+}
+
+/* Hide Carbon Checkbox label (we supply our own) */
+.checklist-item__check .cds--form-item,
+.checklist-item__check .cds--checkbox-wrapper {
+  margin: 0;
+}
+
+.checklist-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.checklist-item__label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+  color: #161616;
+  margin: 0;
+}
+
+.checklist-item__desc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #525252;
+  margin: 0;
+}
+
+/* Essentials AppPoints pill (Step 1 More Options — inside body) */
+.checklist-item__tag {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  margin-top: 4px;
+  background: #d0e2ff;
+  border-radius: 24px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #0043ce;
+  white-space: nowrap;
+}
+
+/* AppPoints pill — right-aligned beside the checkbox body (Step 3 More Options) */
+.checklist-item__ap {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  background: #d0e2ff;
+  border-radius: 24px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #0043ce;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+/* Addon / Connector cool-gray badge */
+.checklist-item__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  margin-top: 4px;
+  background: #cdd3da;
+  border-radius: 24px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #121619;
+  white-space: nowrap;
+}
+
+/* Purple AppPoints-from-modules tag in accordion header */
+.more-options-panel__ap-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  background: #e8daff;
+  border-radius: 24px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #6929c4;
+  white-space: nowrap;
+  margin-right: auto;
+  margin-left: 12px;
+}
+
+/* ---------------------------------------------------------------------------
+   Responsive
+--------------------------------------------------------------------------- */
+@media (max-width: 1056px) {
+  .estimator__body {
+    flex-direction: column;
+    /* Reserve room for the fixed bottom dock (collapsed mini-bar + action footer)
+       so the last form fields clear it. Kept tight to the real dock height. */
+    padding-bottom: calc(var(--dock-actions-h) + 96px);
+  }
+  .estimator__main {
+    flex-direction: column;
+    border-right: none;
+  }
+  /* Clear the fixed 48px header + the sticky horizontal step tabs so a tapped
+     section lands below them instead of hiding underneath. */
+  .step {
+    scroll-margin-top: 108px;
+  }
+
+  /* Header: collapse the four global actions into the SideNav (hamburger). */
+  .cds--header__global {
+    display: none;
+  }
+
+  /* Step nav → horizontal, scrollable tabs pinned to the top while scrolling. */
+  .stepnav {
+    order: -1;
+    position: sticky;
+    top: 48px;
+    z-index: 5;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    flex-basis: auto;
+    min-height: 0;
+    padding: 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .stepnav__item {
+    flex: 0 0 auto;
+    width: auto;
+    height: 48px;
+    padding: 0 16px;
+  }
+  .stepnav__item::before {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    /* Underline hidden until active, then grows in on mobile tabs
+       (the .stepnav bottom border provides the shared track). */
+    transform: scaleX(0);
+  }
+  .stepnav__item--active::before {
+    transform: scaleX(1);
+  }
+  .stepnav__item ol li {
+    margin-left: 12px;
+  }
+
+  /* Summary + action footer form ONE fixed bottom dock frame.
+     The summary is the fixed frame; the footer nests flush beneath it via
+     bottom: 0 and a matching background, so the two read as a single unit. */
+  .summary {
+    position: fixed;
+    left: 0;
+    right: 0;
+    /* Reset the desktop sticky `top: 48px`. With both top and bottom set, a
+       fixed element stretches to fill the gap between them — which made the
+       dock span the whole viewport height. Anchor to the bottom only. */
+    top: auto;
+    bottom: var(--dock-actions-h);
+    z-index: 6;
+    width: 100%;
+    height: auto;
+    /* Reset the desktop 400px basis so the mini-bar is content-sized. Without
+       this, if fixed positioning is ever downgraded to in-flow the 400px basis
+       would render a full-height box that buries the page content. */
+    flex: 0 0 auto;
+    min-height: 0;
+    /* Collapsed: hugs the footer as a compact mini-bar (height driven by content).
+       Expanded: grows upward, capped between the 48px header and the action
+       footer so it never slips under the header. */
+    max-height: calc(100dvh - 48px - var(--dock-actions-h));
+    padding: 0;
+    gap: 0;
+    background: #f4f4f4;
+    border-top: 1px solid #8d8d8d;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.16);
+    overflow: visible;
+    align-self: auto;
+  }
+  /* Dim the page behind the sheet when the chart is expanded (scrim without
+     an extra element), so it reads as an overlay, not a takeover. */
+  .summary:has(.summary__collapse--open) {
+    box-shadow: 0 0 0 100vmax rgba(22, 22, 22, 0.4);
+  }
+  /* Collapsed bar = the single dock cue row (title + combined meta + chevron). */
+  .summary__title-block {
+    display: none;
+  }
+  /* Sidebar title-block is hidden on mobile, so the inline editor lives in the form. */
+  .estimator__form-name {
+    display: block;
+  }
+  .summary__stats {
+    display: none;
+  }
+  .summary__toggle {
+    display: none;
+  }
+  .summary__dock {
+    order: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    background: #ffffff;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: #161616;
+  }
+  .summary__dock-cue {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .summary__dock-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    letter-spacing: 0.16px;
+    color: #161616;
+  }
+  .summary__dock-meta {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: 0.32px;
+    color: #525252;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .summary__dock svg {
+    flex-shrink: 0;
+    fill: #161616;
+  }
+  /* Expanded chart + legend + review CTA slide up from the bottom. */
+  .summary__collapse {
+    order: 1;
+    overflow-y: auto;
+    /* Fill the space above the always-visible 52px dock cue, within the
+       header/footer bounds; scrolls if the chart is taller. */
+    max-height: calc(100dvh - 48px - var(--dock-actions-h) - 52px);
+    padding: 16px;
+    gap: 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .summary__collapse:not(.summary__collapse--open) {
+    display: none;
+  }
+
+  /* Action footer nests flush under the summary as part of the same frame. */
+  .estimator__footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 7;
+    height: var(--dock-actions-h);
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 16px;
+    background: #ffffff;
+    border-top: none;
+  }
+  /* Back hugs its content; Save fills the remaining width (per design).
+     Force Carbon Medium sizing (40px, centered label) over the desktop 2xl. */
+  .estimator__footer .cds--btn {
+    min-width: 0;
+    flex: 0 0 auto;
+    height: 40px;
+    min-height: 40px;
+    align-items: center;
+    padding-block: 0;
+    padding-inline: 15px 16px;
+  }
+  .estimator__footer .cds--btn--primary {
+    flex: 1 1 auto;
+  }
+  .estimator__footer-spacer {
+    display: none;
+  }
+
+  /* Flush content: symmetric padding, drop the left rule. */
+  .estimator__form {
+    padding: 16px;
+    border-left: none;
+  }
+
+  .radio-grid-3,
+  .tile-group-grid-3,
+  .checklist-grid-4,
+  .app-tile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 672px) {
+  .radio-grid-3,
+  .tile-group-grid-3,
+  .checklist-grid-4,
+  .app-tile-grid {
+    grid-template-columns: 1fr;
+  }
+  .review-detail {
+    padding: 16px 16px 48px;
+  }
+  .legend-grid {
+    grid-template-columns: 1fr;
+  }
+  .userpool__summary {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  /* User-pool rows wrap so the info + inputs + points don't overflow. */
+  .userpool__row {
+    flex-wrap: wrap;
+    gap: 12px 16px;
+  }
+  .userpool__info {
+    width: 100%;
+  }
+  .userpool__inputs {
+    flex: 1 1 auto;
+  }
+  .userpool__inputs .cds--number {
+    flex: 1 1 0;
+    width: auto;
+  }
+  .userpool__points {
+    margin-left: 0;
+    min-height: 0;
+    width: auto;
+  }
+  /* Review detail: stop fixed-width cells and wide grids from overflowing. */
+  .review-detail__groups {
+    grid-template-columns: 1fr;
+  }
+  .review-detail .cds--structured-list td:first-child,
+  .review-detail .cds--structured-list th:first-child {
+    min-width: 0;
+    max-width: none;
+  }
+  .review-detail .cds--data-table-container {
+    overflow-x: auto;
+  }
+  .review-detail__title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .review-detail {
+    padding: 16px 12px 48px;
+  }
+  .summary__stats {
+    gap: 16px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   AI chat panel (Carbon for AI) — opens from the header AI launch action
+--------------------------------------------------------------------------- */
+.chatp__scrim {
+  position: fixed;
+  inset: 48px 0 0 0;
+  z-index: 7999;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.chatp {
+  position: fixed;
+  top: 48px;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  max-width: 100vw;
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-left: 2px solid #0f62fe;
+  box-shadow: 0 23px 40px -24px rgba(15, 98, 254, 0.55);
+  transform: translateX(100%);
+  transition: transform 0.24s cubic-bezier(0.2, 0, 0.38, 0.9);
+  overflow: hidden;
+}
+.chatp--open {
+  transform: translateX(0);
+}
+
+/* Subtle AI aura rising from the bottom of the panel. */
+.chatp__aura {
+  position: absolute;
+  inset: 40% 0 0 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(69, 137, 255, 0.1));
+  z-index: 0;
+}
+
+.chatp__header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #ffffff;
+}
+.chatp__ai-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #161616;
+}
+
+.chatp__scroll {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 16px 0 28px;
+}
+
+.chatp__welcome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 16px 0;
+}
+.chatp__avatar {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(140deg, #0f62fe 0%, #a56eff 100%);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+.chatp__avatar--sm {
+  width: 24px;
+  height: 24px;
+}
+.chatp__meta {
+  display: flex;
+  gap: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.32px;
+  color: #525252;
+}
+
+.chatp__lead {
+  margin: 8px 16px 0 56px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: #161616;
+}
+
+.chatp__block {
+  margin: 12px 16px 0 56px;
+  padding-bottom: 8px;
+}
+.chatp__block-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+}
+.chatp__block-body {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+}
+.chatp__block-example {
+  margin-top: 12px;
+  font-style: italic;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+}
+.chatp__block-subtitle {
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+}
+.chatp__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.chatp__chip {
+  border: 1px solid #0f62fe;
+  border-radius: 32px;
+  background: transparent;
+  padding: 7px 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.16px;
+  color: #0f62fe;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.chatp__chip:hover {
+  background: rgba(15, 98, 254, 0.08);
+}
+
+.chatp__msg {
+  display: flex;
+  gap: 8px;
+  padding: 16px 16px 0;
+}
+.chatp__msg--user {
+  justify-content: flex-end;
+}
+.chatp__msg--assistant .chatp__bubble {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.chatp__bubble {
+  max-width: 100%;
+}
+.chatp__msg--user .chatp__bubble {
+  max-width: 80%;
+  background: #e8e8e8;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.chatp__bubble-text {
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+}
+
+.chatp__sources {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f4f4f4;
+  border-radius: 4px;
+}
+.chatp__sources-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #525252;
+  margin-bottom: 8px;
+}
+.chatp__source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  padding: 4px 0;
+  font-size: 0.75rem;
+  color: #525252;
+}
+.chatp__source-doc {
+  font-weight: 600;
+  color: #0f62fe;
+}
+.chatp__source-conf {
+  margin-left: auto;
+  color: #6f6f6f;
+}
+
+.chatp__estimate-actions {
+  margin-top: 12px;
+  display: flex;
+}
+.chatp__estimate-actions .cds--btn {
+  width: 100%;
+  max-width: none;
+  justify-content: space-between;
+}
+
+.chatp__typing {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px 0;
+}
+.chatp__typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8d8d8d;
+  animation: chatp-bounce 1.2s infinite ease-in-out both;
+}
+.chatp__typing i:nth-child(2) { animation-delay: 0.15s; }
+.chatp__typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chatp-bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.chatp__composer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 4px 8px;
+  border-top: 1px solid #e0e0e0;
+  background: #ffffff;
+}
+.chatp__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  resize: none;
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 14px 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.16px;
+  color: #161616;
+  max-height: 120px;
+}
+.chatp__input::placeholder {
+  color: #a8a8a8;
+}
+
+@media (max-width: 480px) {
+  .chatp {
+    width: 100vw;
+    border-left: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Review header action + Send to CPQ tearsheet
+--------------------------------------------------------------------------- */
+.review-detail__header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.review-detail__cpq-btn {
+  flex-shrink: 0;
+}
+
+/* Narrow tearsheet: bottom-anchored fixed panel + scrim */
+.cpq {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+}
+.cpq__scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(22, 22, 22, 0.5);
+  opacity: 0;
+  transition: opacity 0.24s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+.cpq--open {
+  pointer-events: auto;
+}
+.cpq--open .cpq__scrim {
+  opacity: 1;
+}
+
+.cpq__panel {
+  position: absolute;
+  top: 48px;
+  bottom: 0;
+  left: 50%;
+  width: 480px;
+  max-width: 100vw;
+  transform: translate(-50%, 100%);
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.38, 0.9);
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.24);
+}
+.cpq--open .cpq__panel {
+  transform: translate(-50%, 0);
+}
+
+.cpq__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 24px 16px 24px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.cpq__header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cpq__label {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+.cpq__title {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+.cpq__desc {
+  margin-top: 4px;
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.cpq__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.cpq__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: #f4f4f4;
+  border-left: 3px solid #0f62fe;
+}
+.cpq__summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cpq__summary-name {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+}
+.cpq__summary-term {
+  color: #525252;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+.cpq__stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cpq__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cpq__stat-value {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.cpq__stat-label {
+  color: #525252;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.cpq__modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.cpq__muted {
+  color: #6f6f6f;
+  font-size: 0.875rem;
+}
+
+.cpq__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 24px 8px;
+}
+.cpq__success-icon {
+  color: #24a148;
+}
+.cpq__success-title {
+  color: #161616;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+.cpq__success-body {
+  color: #525252;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  max-width: 320px;
+}
+
+/* Opportunity ID field — sized to content, does not grow (visual editor). */
+.cpq__opportunity {
+  height: fit-content;
+  flex-grow: 0;
+}
+
+.cpq__footer {
+  display: flex;
+  flex-shrink: 0;
+  border-top: 1px solid #e0e0e0;
+}
+.cpq__footer .cds--btn {
+  flex: 1 1 0;
+  max-width: none;
+  min-width: 0;
+  height: 64px;
+  align-items: flex-start;
+  padding-top: 16px;
+}
+.cpq__footer .cds--inline-loading {
+  min-height: 0;
+}
+
+@media (max-width: 480px) {
+  .cpq__panel {
+    width: 100vw;
+  }
+  .review-detail__header-top {
+    flex-direction: column;
+  }
+  .review-detail__cpq-btn {
+    width: 100%;
+  }
+}
