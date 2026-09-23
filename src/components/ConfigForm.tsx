@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react';
-import { SelectableTile, NumberInput, Tag, RadioTile, Checkbox } from '@carbon/react';
+import { SelectableTile, NumberInput, Tag, RadioTile } from '@carbon/react';
 import InlineEditableName from './InlineEditableName';
 import {
   Plane,
@@ -137,41 +137,43 @@ const Section = forwardRef<HTMLElement, { eyebrow: string; title: string; childr
   },
 );
 
-/* ── Shared ChecklistItem ───────────────────────────────────────────── */
+/* ── Shared More Options Tile (Carbon SelectableTile) ───────────────── */
 
-interface ChecklistItemProps {
+interface MoreOptionTileProps {
   id: string;
   label: string;
   description: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
+  selected: boolean;
+  onClick: () => void;
   appPoints?: number;
   badgeType?: 'Addon' | 'Connector';
 }
 
-function ChecklistItem({ id, label, description, checked, onChange, appPoints, badgeType }: ChecklistItemProps) {
+function MoreOptionTile({ id, label, description, selected, onClick, appPoints, badgeType }: MoreOptionTileProps) {
   return (
-    <div className={`checklist-item${checked ? ' checklist-item--selected' : ''}`}>
-      <div className="checklist-item__check">
-        <Checkbox
-          id={id}
-          labelText=""
-          hideLabel
-          checked={checked}
-          onChange={(_e, { checked: c }) => onChange(c)}
-        />
+    <SelectableTile
+      id={id}
+      selected={selected}
+      onClick={onClick}
+      className="more-options-tile"
+    >
+      <div className="more-options-tile__content">
+        <strong className="more-options-tile__label">{label}</strong>
+        <p className="more-options-tile__desc">{description}</p>
+        <div className="more-options-tile__meta">
+          {badgeType && (
+            <Tag type="gray" size="sm">
+              {badgeType}
+            </Tag>
+          )}
+          {appPoints !== undefined && (
+            <Tag type="blue" size="sm">
+              {appPoints} AppPoints
+            </Tag>
+          )}
+        </div>
       </div>
-      <div className="checklist-item__body">
-        <p className="checklist-item__label">{label}</p>
-        <p className="checklist-item__desc">{description}</p>
-        {badgeType && (
-          <span className="checklist-item__badge">{badgeType}</span>
-        )}
-      </div>
-      {appPoints !== undefined && (
-        <span className="checklist-item__ap">{appPoints} AppPoints</span>
-      )}
-    </div>
+    </SelectableTile>
   );
 }
 
@@ -283,13 +285,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {INDUSTRY_SOLUTIONS.map((sol) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={sol.id}
                       id={sol.id}
                       label={sol.label}
                       description={sol.description}
-                      checked={selectedSolutions.includes(sol.id)}
-                      onChange={() => toggle(setSelectedSolutions)(sol.id)}
+                      selected={selectedSolutions.includes(sol.id)}
+                      onClick={() => toggle(setSelectedSolutions)(sol.id)}
                     />
                   ))}
                 </div>
@@ -302,13 +304,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {ESSENTIALS_PACKAGES.map((pkg) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={pkg.id}
                       id={pkg.id}
                       label={pkg.label}
                       description={pkg.description}
-                      checked={selectedPackages.includes(pkg.id)}
-                      onChange={() => toggle(setSelectedPackages)(pkg.id)}
+                      selected={selectedPackages.includes(pkg.id)}
+                      onClick={() => toggle(setSelectedPackages)(pkg.id)}
                       appPoints={50}
                     />
                   ))}
@@ -394,13 +396,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {CORE_APPLICATIONS.map((app) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={app.id}
                       id={`core-${app.id}`}
                       label={app.label}
                       description={app.description}
-                      checked={formData.selectedApplications.includes(app.id)}
-                      onChange={() => onToggleApplication(app.id)}
+                      selected={formData.selectedApplications.includes(app.id)}
+                      onClick={() => onToggleApplication(app.id)}
                       appPoints={app.appPoints}
                     />
                   ))}
@@ -415,13 +417,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {INDUSTRY_APPLICATIONS.map((app) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={app.id}
                       id={app.id}
                       label={app.label}
                       description={app.description}
-                      checked={selectedIndustryApps.includes(app.id)}
-                      onChange={() => toggle(setSelectedIndustryApps)(app.id)}
+                      selected={selectedIndustryApps.includes(app.id)}
+                      onClick={() => toggle(setSelectedIndustryApps)(app.id)}
                       appPoints={app.appPoints}
                     />
                   ))}
@@ -436,13 +438,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {SPECIALIZED_APPLICATIONS.map((app) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={app.id}
                       id={app.id}
                       label={app.label}
                       description={app.description}
-                      checked={selectedSpecializedApps.includes(app.id)}
-                      onChange={() => toggle(setSelectedSpecializedApps)(app.id)}
+                      selected={selectedSpecializedApps.includes(app.id)}
+                      onClick={() => toggle(setSelectedSpecializedApps)(app.id)}
                     />
                   ))}
                 </div>
@@ -456,13 +458,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {MANAGE_ADDONS.map((addon) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={addon.id}
                       id={addon.id}
                       label={addon.label}
                       description={addon.description}
-                      checked={selectedAddons.includes(addon.id)}
-                      onChange={() => toggle(setSelectedAddons)(addon.id)}
+                      selected={selectedAddons.includes(addon.id)}
+                      onClick={() => toggle(setSelectedAddons)(addon.id)}
                       appPoints={addon.appPoints}
                       badgeType={addon.badgeType}
                     />
@@ -478,13 +480,13 @@ export default function ConfigForm({
                 />
                 <div className="checklist-grid-4">
                   {ADVANCED_COMPONENTS.map((comp) => (
-                    <ChecklistItem
+                    <MoreOptionTile
                       key={comp.id}
                       id={comp.id}
                       label={comp.label}
                       description={comp.description}
-                      checked={selectedAdvanced.includes(comp.id)}
-                      onChange={() => toggle(setSelectedAdvanced)(comp.id)}
+                      selected={selectedAdvanced.includes(comp.id)}
+                      onClick={() => toggle(setSelectedAdvanced)(comp.id)}
                       appPoints={comp.appPoints}
                     />
                   ))}

@@ -1151,62 +1151,40 @@ body {
   margin: 0;
 }
 
-/* 3-column checklist grid */
+/* 3-column tile grid for More Options */
 .checklist-grid-4 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
-/* Single checklist row item */
-.checklist-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 16px 8px 16px 0;
-  box-shadow: inset 0 -1px 0 0 #e0e0e0;
-  background: #ffffff;
+/* More Options Carbon SelectableTile overrides */
+.more-options-tile {
   min-height: 120px;
-  border-left: 3px solid transparent;
-  transition: background 80ms, border-color 80ms;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.checklist-item--selected {
-  border-left-color: #0f62fe;
-  background: #e0e0e0;
-}
-
-.checklist-item__check {
-  flex-shrink: 0;
-  /* Align checkbox with first line of label */
-  padding-top: 1px;
-}
-
-/* Hide Carbon Checkbox label (we supply our own) */
-.checklist-item__check .cds--form-item,
-.checklist-item__check .cds--checkbox-wrapper {
-  margin: 0;
-}
-
-.checklist-item__body {
+.more-options-tile__content {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
-  min-width: 0;
+  height: 100%;
 }
 
-.checklist-item__label {
+.more-options-tile__label {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 18px;
   letter-spacing: 0.16px;
   color: #161616;
   margin: 0;
+  padding-right: 28px; /* space for Carbon SelectableTile checkmark */
 }
 
-.checklist-item__desc {
+.more-options-tile__desc {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -1214,61 +1192,15 @@ body {
   letter-spacing: 0.32px;
   color: #525252;
   margin: 0;
+  margin-top: 2px;
+  flex: 1;
 }
 
-/* Essentials AppPoints pill (Step 1 More Options — inside body) */
-.checklist-item__tag {
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding: 0 8px;
-  margin-top: 4px;
-  background: #d0e2ff;
-  border-radius: 24px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.32px;
-  color: #0043ce;
-  white-space: nowrap;
-}
-
-/* AppPoints pill — right-aligned beside the checkbox body (Step 3 More Options) */
-.checklist-item__ap {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding: 0 8px;
-  background: #d0e2ff;
-  border-radius: 24px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.32px;
-  color: #0043ce;
-  white-space: nowrap;
-  align-self: flex-start;
-}
-
-/* Addon / Connector cool-gray badge */
-.checklist-item__badge {
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding: 0 8px;
-  margin-top: 4px;
-  background: #cdd3da;
-  border-radius: 24px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.32px;
-  color: #121619;
-  white-space: nowrap;
+.more-options-tile__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
 }
 
 /* Purple AppPoints-from-modules tag in accordion header */
