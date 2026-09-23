@@ -85,6 +85,8 @@ body {
   flex: 1 0 0;
   align-items: stretch;
   width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
   /* offset for sticky 48px Carbon header */
   padding-top: 48px;
 }
@@ -99,12 +101,14 @@ body {
 }
 
 .estimator__form {
-  flex: 1 0 0;
+  flex: 0 1 800px;
+  width: 100%;
+  max-width: 800px;
   min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 48px; /* design: gap-[48px] */
-  padding: 16px 32px 64px 16px;
+  padding: 32px 32px 64px 16px;
 }
 
 /* Bottom action bar */
@@ -776,10 +780,10 @@ body {
    Right step navigation — 200 px vertical tab panel
 --------------------------------------------------------------------------- */
 .stepnav {
-  flex: 0 0 200px;
-  width: 200px;
+  flex: 1 1 200px;
+  min-width: 200px;
   background: #f4f4f4;
-  padding: 16px 0 16px 16px;
+  padding: 32px 0 16px 16px;
   position: sticky;
   top: 48px;
   align-self: flex-start;
