@@ -24,7 +24,7 @@ interface Props {
   onApplyConfig?: (fd: FormData) => void;
 }
 
-const watsonxGlyph = '/assets/watsonx-glyph.svg';
+const watsonxGlyph = `${import.meta.env.BASE_URL}assets/watsonx-glyph.svg`;
 
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });

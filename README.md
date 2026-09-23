@@ -81,6 +81,22 @@ An interactive web application and prototype designed to configure and estimate 
 
 ---
 
+## 🌐 Live Demo & Deployment
+
+This project is deployed to GitHub Pages at:
+👉 **[https://kyle-tran-quang.github.io/mas-pricing-estimator/](https://kyle-tran-quang.github.io/mas-pricing-estimator/)**
+
+### GitHub Pages Setup
+
+The repository includes a GitHub Actions workflow in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) that builds and deploys the app on every push to `main`.
+
+To enable it in your repository:
+1. Go to repository **Settings** > **Pages**
+2. Under **Build and deployment** > **Source**, choose **GitHub Actions**
+3. Push to `main` (or run the workflow manually) to deploy.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
