@@ -685,6 +685,25 @@ body {
   width: 100%;
 }
 
+.cds--tooltip-content {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.userpool__tooltip-btn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #525252;
+  line-height: 1;
+}
+
+.userpool__tooltip-btn:hover {
+  color: #161616;
+}
+
 .userpool__row {
   display: flex;
   flex-direction: row;

@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react';
-import { SelectableTile, NumberInput, Tag, RadioTile } from '@carbon/react';
+import { SelectableTile, NumberInput, Tag, RadioTile, Tooltip } from '@carbon/react';
 import InlineEditableName from './InlineEditableName';
 import {
   Plane,
@@ -14,9 +14,19 @@ import {
   Layers,
   ChevronDown,
   ChevronUp,
+  Information,
 } from '@carbon/icons-react';
 import { APPLICATIONS, USER_TIER_APPPOINTS, ENVIRONMENT_SIZES } from '../imports/constants';
 import type { FormData, UserTierId, TierCounts } from '../types';
+
+/* ── User tier descriptions ─────────────────────────────────────────── */
+
+const TIER_DESCRIPTIONS: Record<string, string> = {
+  selfService: 'Can submit service requests and desktop requisitions, view work orders assigned to them, and approve or reject items in their workflow inbox.',
+  limited:     'Can access up to 3 Manage modules chosen during configuration. Cannot access Planning & Scheduling, Administration, Integration Framework, Security modules, add-ons, or industry solutions.',
+  base:        'Can access 4 or more Manage modules including Planning & Scheduling. Full access to core Manage functionality. Cannot access add-ons or industry solutions.',
+  premium:     'Full access to all Manage modules plus all add-ons and industry solutions included in the client\'s subscription.',
+};
 
 /* ── Step 1 More Options data ───────────────────────────────────────── */
 
@@ -522,13 +532,33 @@ export default function ConfigForm({
               <div className="userpool__summary-value">
                 <span className="value">{concurrentUsers.toLocaleString('en-US')}</span>
               </div>
-              <span className="label">Concurrent users</span>
+              <span className="label" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                Concurrent users
+                <Tooltip
+                  label="A user actively accessing the system at a given moment. Entitlements cover your peak simultaneous load — ideal for shift-based or intermittent workforces."
+                  align="bottom"
+                >
+                  <button type="button" className="userpool__tooltip-btn" aria-label="Concurrent user definition">
+                    <Information size={14} />
+                  </button>
+                </Tooltip>
+              </span>
             </div>
             <div className="userpool__summary-item">
               <div className="userpool__summary-value">
                 <span className="value">{authorizedUsers.toLocaleString('en-US')}</span>
               </div>
-              <span className="label">Authorized users</span>
+              <span className="label" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                Authorized users
+                <Tooltip
+                  label="A uniquely identified individual granted permanent system access. Each entitlement is person-specific and non-transferable, ensuring accountability across your organization."
+                  align="bottom"
+                >
+                  <button type="button" className="userpool__tooltip-btn" aria-label="Authorized user definition">
+                    <Information size={14} />
+                  </button>
+                </Tooltip>
+              </span>
             </div>
             <div className="userpool__summary-item">
               <div className="userpool__summary-value">
@@ -546,16 +576,23 @@ export default function ConfigForm({
               return (
                 <div key={tier} className="userpool__row">
                   <div className="userpool__info">
-                    <span className="userpool__info-name">{meta.label}</span>
+                    <span className="userpool__info-name" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      {meta.label}
+                      <Tooltip label={TIER_DESCRIPTIONS[tier]} align="bottom">
+                        <button type="button" className="userpool__tooltip-btn" aria-label={`${meta.label} definition`}>
+                          <Information size={14} />
+                        </button>
+                      </Tooltip>
+                    </span>
                     <span className="userpool__info-meta">
-                      <span>{meta.concurrent} pts/concurrent</span>
-                      <span>{meta.authorized} pts/authorized</span>
+                      <span>{meta.concurrent} pts / concurrent user</span>
+                      <span>{meta.authorized} pts / authorized user</span>
                     </span>
                   </div>
                   <div className="userpool__inputs">
                     <NumberInput
                       id={`${tier}-concurrent`}
-                      label="Concurrent"
+                      label="Concurrent users"
                       min={0}
                       value={counts.concurrent}
                       onChange={(_e: unknown, { value }: { value: string | number }) =>
@@ -564,7 +601,7 @@ export default function ConfigForm({
                     />
                     <NumberInput
                       id={`${tier}-authorized`}
-                      label="Authorized"
+                      label="Authorized users"
                       min={0}
                       value={counts.authorized}
                       onChange={(_e: unknown, { value }: { value: string | number }) =>

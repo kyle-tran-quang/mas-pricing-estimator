@@ -363,9 +363,9 @@ export default function ReviewPage({
                 <StructuredListRow key={tier}>
                   <StructuredListCell>{meta.label}</StructuredListCell>
                   <StructuredListCell className="review-detail__muted-cell">
-                    {counts.concurrent > 0 && `${counts.concurrent} concurrent`}
+                    {counts.concurrent > 0 && `${counts.concurrent} concurrent users`}
                     {counts.concurrent > 0 && counts.authorized > 0 && '  ·  '}
-                    {counts.authorized > 0 && `${counts.authorized} authorized`}
+                    {counts.authorized > 0 && `${counts.authorized} authorized users`}
                     {counts.concurrent === 0 && counts.authorized === 0 && '—'}
                   </StructuredListCell>
                   <StructuredListCell noWrap>
