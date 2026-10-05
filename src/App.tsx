@@ -62,6 +62,36 @@ export default function App() {
 
   const result = useMemo(() => calculateEstimate(formData), [formData]);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    const summaryEl = document.querySelector('.summary');
+    if (summaryEl) summaryEl.scrollTop = 0;
+    const reviewEl = document.querySelector('.review-detail');
+    if (reviewEl) reviewEl.scrollTop = 0;
+  };
+
+  const handleReview = () => {
+    setView('review');
+    scrollToTop();
+  };
+
+  const handleBackToConfig = () => {
+    setView('form');
+    scrollToTop();
+  };
+
+  useEffect(() => {
+    if (view === 'review') {
+      scrollToTop();
+      const raf = requestAnimationFrame(() => {
+        scrollToTop();
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [view]);
+
   const handleChange = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
@@ -282,7 +312,7 @@ export default function App() {
               moduleCount={formData.selectedApplications.length}
               segments={segments}
               legend={legend}
-              onReview={() => setView('review')}
+              onReview={handleReview}
             />
           </div>
 
@@ -296,7 +326,7 @@ export default function App() {
                 result={result}
                 perTierPoints={perTierPoints}
                 totalUsers={totalUsers}
-                onBack={() => setView('form')}
+                onBack={handleBackToConfig}
               />
             </main>
 
@@ -309,7 +339,7 @@ export default function App() {
               moduleCount={formData.selectedApplications.length}
               segments={segments}
               legend={legend}
-              onReview={() => setView('review')}
+              onReview={handleReview}
               showReview={false}
             />
           </div>

@@ -14,7 +14,7 @@ import {
   StructuredListCell,
   Tag,
 } from '@carbon/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, Launch } from '@carbon/icons-react';
 import CpqTearsheet from './CpqTearsheet';
 import type { FormData, UserTierId, EstimateResult } from '../types';
@@ -93,6 +93,14 @@ export default function ReviewPage({
 }: Props) {
   const { annualCost, totalAppPoints, totalCost, termDiscount, breakdown } = result;
   const [cpqOpen, setCpqOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    const reviewEl = document.querySelector('.review-detail');
+    if (reviewEl) reviewEl.scrollTop = 0;
+  }, []);
 
   const selectedApps = APPLICATIONS.filter((a) =>
     formData.selectedApplications.includes(a.id),
