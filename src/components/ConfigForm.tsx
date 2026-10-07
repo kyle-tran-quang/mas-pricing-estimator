@@ -16,7 +16,7 @@ import {
   ChevronUp,
   Information,
 } from '@carbon/icons-react';
-import { APPLICATIONS, USER_TIER_APPPOINTS, ENVIRONMENT_SIZES } from '../imports/constants';
+import { APPLICATIONS, USER_TIER_APPPOINTS, ENVIRONMENT_SIZES } from '../../pricing_engine.mjs';
 import type { FormData, UserTierId, TierCounts } from '../types';
 
 /* ── User tier descriptions ─────────────────────────────────────────── */

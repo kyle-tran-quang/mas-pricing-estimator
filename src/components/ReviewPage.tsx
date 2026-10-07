@@ -26,7 +26,7 @@ import {
   DATABASE_TYPES,
   ADVANCED_COMPONENTS,
   ADDONS,
-} from '../imports/constants';
+} from '../../pricing_engine.mjs';
 
 /* ── helpers ─────────────────────────────────────────────────────────── */
 

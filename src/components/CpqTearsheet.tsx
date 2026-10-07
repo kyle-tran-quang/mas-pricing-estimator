@@ -8,7 +8,7 @@ import {
 } from '@carbon/react';
 import { Close, CheckmarkFilled, Launch } from '@carbon/icons-react';
 import type { FormData, EstimateResult } from '../types';
-import { APPLICATIONS } from '../imports/constants';
+import { APPLICATIONS } from '../../pricing_engine.mjs';
 
 const currency = new Intl.NumberFormat('en-US', {
   style: 'currency',

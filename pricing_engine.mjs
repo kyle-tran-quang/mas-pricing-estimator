@@ -425,7 +425,7 @@ export function calculateEstimate(formData) {
 
 // ── Demo / runnable entry ────────────────────────────────────────────────
 
-const isMain = process.argv[1] && process.argv[1].endsWith('pricing_engine.mjs');
+const isMain = typeof process !== 'undefined' && process?.argv?.[1]?.endsWith('pricing_engine.mjs');
 if (isMain) {
   const sampleForm = {
     estimateName: 'Transport for London',

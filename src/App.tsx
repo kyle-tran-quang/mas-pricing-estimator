@@ -6,14 +6,14 @@ import SummarySidebar, { type VizSegment } from './components/SummarySidebar';
 import StepNav, { type NavStep } from './components/StepNav';
 import ConfigForm from './components/ConfigForm';
 import ReviewPage from './components/ReviewPage';
-import { calculateEstimate } from './imports/calculateEstimate';
 import {
+  calculateEstimate,
   APPLICATIONS,
   USER_TIER_APPPOINTS,
   ENVIRONMENT_SIZES,
   DEPLOYMENT_ARCHITECTURE,
   PRICING,
-} from './imports/constants';
+} from '../pricing_engine.mjs';
 import type { FormData, UserTierId, TierCounts } from './types';
 
 const NAV_STEPS: NavStep[] = [
